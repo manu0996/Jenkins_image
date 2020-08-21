@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="log-path">./log</Property>
+    <Property name="org.jooq.Constants.level">WARNING</Property>
+  </Properties>
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - [%-5level] - %c{1} - %msg%n" />
+    </Console>
+    <RollingFile name="RollingFile" fileName="${log-path}/mvn-hello-world.log" filePattern="${log-path}/mvn-hello-world-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - [%-5level] - %msg%n" />
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="10" />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="root" level="warn" additivity="false">
+      <appender-ref ref="RollingFile" level="info" />
+    </Logger>
+    <Root level="warn" additivity="false">
+      <AppenderRef ref="console" />
+      <AppenderRef ref="RollingFile" />
+    </Root>
+  </Loggers>
+</Configuration>
